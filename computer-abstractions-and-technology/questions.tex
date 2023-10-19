@@ -1,0 +1,219 @@
+\documentclass[11pt]{article}
+
+% URLs and hyperlinks ---------------------------------------
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+}
+\usepackage{xurl}
+%---------------------------------------------------
+
+% footnotes in headings -------------------------------------
+\usepackage[stable]{footmisc}
+%------------------------------------------------------------
+
+\usepackage{float}
+
+\usepackage{xepersian}
+\settextfont{Yas}
+\setdigitfont{Yas}
+
+\newcommand{\mahdi}{مهدی حق‌وردی}
+\newcommand{\hosna}{حسنا رجایی}
+\newcommand{\isa}{\lr{ISA} }
+\newcommand{\clockrate}{\lr{Clock Rate} }
+\newcommand{\cpi}{\lr{CPI} }
+
+\title{تمرینات فصل اول - مقدمات و \lr{Performance}}
+\author{
+    حسنا رجایی \\
+مهدی‌ حق‌وردی}
+\date{}
+
+\begin{document}
+    \maketitle    
+    \begin{abstract}
+        سوالات فصل اول کتاب که توضیحات کلی در مورد سخت‌افزار کامپیوتر و مفاهیم مهمی که در این درس با آنها کار داریم، برای شما تالیف شده‌اند.
+        
+        پاسخ هر سوال را در قسمت مربوط آنها در کوئرا به صورت \lr{PDF} به صورت تایپ‌ شده، یا دست‌نویس خوش‌خط و خوانا آپلود کنید.
+        
+        هر سوال دارای یک پاورقی‌ست که طراح آن سوال را مشخص می‌کند، برای پرسیدن هرگونه سوال به طراح هر سوال مراجعه کنید.
+        
+        پس از پایان‌ یافتن هر سری تمرین، پاسخ‌های تمرین‌ها در 
+        \url{}
+        برای شما قرار خواهد گرفت
+        
+    \end{abstract}
+    \tableofcontents
+    \newpage
+    
+\section[مقدمات و تعاریف]{مقدمات و تعاریف\RTLfootnote{\hosna}}
+    ابتدا مفاهیم 
+    \lr{CPI},
+    \lr{IC (Instruction Count)}
+    و
+    \clockrate
+    را به طور مختصر توضیح دهید و سپس بیان کنید که هر یک از گزینه‌های زیر چگونه بر این موارد تاثیر می‌گذارند.
+    \begin{enumerate}
+        \item   برنامه‌ی نوشته شده
+        \item  سخت‌افزار ماشین
+        \item کامپایلر
+        \item مجموعه دستور‌العمل \lr{(ISA)}
+    \end{enumerate}
+
+\section[\lr{Performance}]{\lr{Performance}\RTLfootnote{\mahdi}}
+    سه پردازنده‌ی مختلف به نام‌های \lr{P1}، \lr{P2} و \lr{P3} را در نظر بگیرید که یک 
+    \lr{ISA}
+    یکسان را با 
+    \clockrate
+    و
+    \lr{CPI}های
+    زیر اجرا می‌کنند.
+\begin{table}[H]
+    \begin{latin}
+        \begin{center}
+            \begin{tabular}{|c|c|c|}
+                \hline
+                Processor & Clock Rate & CPI \\
+                \hline
+                \hline
+                P1  & 3 GHz & 1.5 \\
+                \hline
+                P2  & 2.5 GHz & 1.0 \\
+                \hline
+                P3  & 4 GHz & 2.2 \\
+                \hline
+            \end{tabular}
+        \end{center}
+    \end{latin}
+\end{table}    
+
+\begin{enumerate}
+    \item 
+    کدام پردازنده بالاترین \lr{performace} با یکای \lr{instructions per second} داراست؟
+    \item 
+    اگر هر کدام از این پردازنده‌ها به مدت ۱۰ ثانیه برنامه‌ای را اجرا کند، برای هر یک تعداد \lr{cycle}ها و تعداد دستوراتی که اجرا کرده‌اند \lr{(Instruction Count)} را بیابید.
+    \item 
+    فرض کنید در حال تلاش برای کاهش۳۰ درصدی زمان هستیم، اما با این کار \cpi اندازه‌ی \% ۲۰ درصد افزایش می‌یابد. برای اینکه بتوان موفق به به چنین کاهشی شد، \clockrate باید چقدر باشد؟
+\end{enumerate}
+
+\section[\lr{ISA}]{\lr{ISA}\RTLfootnote{\mahdi}}
+دو پیاده‌سازی کاملا متفاوت از یک \isa را در نظر داشته باشید. در این \lr{ISA}، ۴ نوع کلاس دستوری متفاوت وجود دارد که در جدول زیر، برای هر یک از پیاده‌سازی‌ها \clockrate و \cpi آنها نوشته شده است.
+
+\begin{table}[H]
+    \begin{latin}
+        \begin{center}
+            \begin{tabular}{|c|c|c|c|c|c|}
+                \hline
+                Implementation & Clock Rate & CPI A & CPI B & CPI C & CPI D \\
+                \hline
+                P1 & 2.5 GHz & 1 & 2 & 3 & 3 \\
+                \hline
+                P2 & 3GHz & 2 &  2 & 2 &  2 \\
+                \hline
+            \end{tabular}
+        \end{center}
+    \end{latin}
+\end{table}
+
+\begin{enumerate}
+    \item 
+    اگر برنامه‌ای با تعداد 
+    $10^6$
+    دستور، که از 
+    10\% دستورات کلاس \lr{A}،
+    20\% دستورات کلاس \lr{‌B}،
+    50\% دستورات کلاس \lr{‌C} و
+    20\% دستورات کلاس \lr{D} 
+    تشکیل شده باشد، کدام پیاده‌سازی سریع‌تر است؟
+    \item 
+    مقدر \cpi برای هر یک از پیاده‌سازی‌ها چقدر است؟
+    \item 
+    تعداد \lr{Clock Cycle} برای هر دو را پیدا‌ کنید.
+\end{enumerate}
+
+\section[سوال ترکیبی]{سوال ترکیبی\RTLfootnote{\hosna}}
+جدول زیر اطلاعات مربوط به دو پردازنده را نشان می‌دهد.
+\begin{table}[H]
+    \begin{latin}
+        \begin{center}
+            \begin{tabular}{|c|c|c|c|}
+                \hline
+                Name & Execution Time (seconds) & CPI & Clock Rate \\
+                \hline
+                \hline
+                A & 820 & 0.96 & 3 GHz \\
+                \hline
+                B & 580 & 2.94 & 3 GHz \\
+                \hline
+            \end{tabular}
+        \end{center}
+    \end{latin}
+\end{table}
+
+\begin{enumerate}
+    \item 
+         اگر با نرخ سیگنال (\lr{Clock Rate})
+         ۴ گیگاهرتز،
+          زمان اجرا ۱۰\% کاهش یابد (بدون آنکه مقدار \cpi تغییری کند،) تعداد دستورالعمل‌های هر برنامه را محاسبه کنید.
+    \item 
+    محاسبه کنید که اگر بخواهیم زمان \lr{CPU} را برای هر برنامه ۱۰\% کاهش دهیم (بدون آنکه تعداد دستورالعمل‌های آنها یا \cpi آنها تغییر کند،) نرخ سیگنال (\lr{Clock Rate}) چقدر باید باشد؟
+    \item 
+    محاسبه کنید که اگر مقدار \cpi به اندازه‌ی ۱۵\% و زمان \lr{CPU} به اندازه‌ی ۲۰\% کاهش یابد در حالی که تعداد دستورالعمل‌های هر برنامه ثابت بماند، نرخ سیگنال چقدر است؟
+\end{enumerate}
+
+\section[\lr{Benchmark}]{\lr{Benchmark}\RTLfootnote{\mahdi}}
+جدول زیر نتایج 
+\lr{SPEC CPU2006} 
+را برای پردازنده‌ی 
+\lr{AMD Barcelona}
+نشان می‌دهد.
+
+\begin{table}[H]
+    \begin{latin}
+        \begin{center}
+            \begin{tabular}{|c|c|c|c|}
+                \hline
+                & program & Instrucion Count$\times 10^9$ & Execution Time (seconds) \\
+                \hline
+                \hline
+                a. & bzip2 & 2389 & 750 \\
+                \hline
+                b. & go & 1658 & 700 \\
+                \hline
+            \end{tabular}
+        \end{center}
+    \end{latin}
+\end{table}
+    مقدار \cpi را پیدا کنید اگر نرخ سیگنال ۳ گیگاهرتز باشد.
+
+جدول زیر، تعدادی بنچ‌مارک دیگر را نشان می‌دهد.
+
+\begin{table}[H]
+    \begin{latin}
+        \begin{center}
+            \begin{tabular}{|c|c|c|c|}
+                \hline
+                & program & CPI & Clock Rate \\
+                \hline
+                \hline
+                a. & libquantum & 1.61 & 4 GHz \\
+                \hline
+                b. & astar & 1.79 & 4 GHz \\
+                \hline
+            \end{tabular}
+        \end{center}
+    \end{latin}
+\end{table}
+
+\begin{enumerate}
+    \item 
+    اگر تعداد دستورات هر بنچ‌مارک 10\% افزایش یابد (بدون اینکه \cpi تغییری کند،) مقدار \lr{CPU time} چقدر افزایش می‌یابد؟
+    \item
+      اگر تعداد دستورات هر بنچ‌مارک 10\% و \cpi هم ۵\% افزایش یابد، مقدار \lr{CPU time} چقدر افزایش می‌یابد؟
+    
+\end{enumerate}
+\end{document}
