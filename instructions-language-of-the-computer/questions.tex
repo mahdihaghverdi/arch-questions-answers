@@ -136,7 +136,45 @@ andi $t2, $t2, 0xFFEF
 
 \section{عملیات‌های شرطی \lr{Branches}}
 \subsection{مقدار نهایی چیست؟}
+کد‌هایی زیر را در نظر بگیرید
+\begin{latin}
+\begin{enumerate}
+\item
+\begin{lstlisting}[keywords={addi, subi, bne}]
+LOOP:   addi $s2, $s2, 2
+        subi $t1, $t1, 1
+        bne $t1, $0, LOOP
+DONE:
+\end{lstlisting}
+
+\item
+\begin{lstlisting}[keywords={slt, beq, subi, addi, j}]
+LOOP:   slt $t2, $0, $t1
+        beq $t2, $0, DONE
+        subi $t1, $t1, 1
+        addi $s2, $s2, 2
+        j LOOP
+DONE:
+\end{lstlisting}
+\end{enumerate}
+\end{latin}
+
+فرض کنید که مقدار اولیه‌ی رجیستر
+\lr{\texttt{\$t1}}
+برابر است با 
+\lr{\texttt{10}}
+و مقدار اولیه رجیستر \lr{\texttt{\$s2}} برابر با صفر، مقدار نهایی 
+\lr{\texttt{\$s2}}
+چند است؟
 \subsection{کد اسمبلی را بنویسید.}
+کد اسمبلی کد زیر را بنویسید.
+\begin{latin}
+\begin{lstlisting}[language=c]
+for(i=0; i<a; i++)
+    for(j=0; j<b; j++)
+        D[4*j] = i + j;
+\end{lstlisting}
+\end{latin}
 
 \section{توابع}
 \subsection{تابع \lr{\texttt{positive}}}
