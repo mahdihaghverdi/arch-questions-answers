@@ -86,6 +86,53 @@ void copy(int a[], int b[], int n){
 \end{lstlisting}
 \end{latin}
 \section{عملیات‌های منطقی}
+سوالات زیر را بر اساس جدول زیر که محتویات رجیستر‌های \lr{\texttt{\$t0}}
+و 
+\lr{\texttt{\$t1}}
+را داراست، بنویسید.
+
+\begin{latin}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+\texttt{\$t0 = 0xAAAAAAAA} & \texttt{\$t1 = 0x12345678} \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+\end{latin}
+
+\begin{enumerate}
+\item 
+مقدار \lr{\texttt{\$t2}} بعد از اجرای کد زیر چقدر است؟ پاسخ را به صورت \lr{hexadeciaml} بنویسید.
+
+\begin{latin}
+\begin{lstlisting}
+sll $t2, $t0, 44
+or $t2, $t2, $t1
+\end{lstlisting}
+\end{latin}
+\item 
+مقدار \lr{\texttt{\$t2}} بعد از اجرای کد زیر چقدر است؟ پاسخ را به صورت \lr{hexadeciaml} بنویسید.
+
+\begin{latin}
+\begin{lstlisting}[keywords={sll, andi}]
+sll $t2, $t0, 4
+andi $t2, $t2, –1
+\end{lstlisting}
+\end{latin}
+
+\item 
+مقدار \lr{\texttt{\$t2}} بعد از اجرای کد زیر چقدر است؟ پاسخ را به صورت \lr{hexadeciaml} بنویسید.
+
+\begin{latin}
+\begin{lstlisting}[keywords={srl, andi}]
+srl $t2, $t0, 3
+andi $t2, $t2, 0xFFEF
+\end{lstlisting}
+\end{latin}
+\end{enumerate}
 
 \section{عملیات‌های شرطی \lr{Branches}}
 \subsection{مقدار نهایی چیست؟}
