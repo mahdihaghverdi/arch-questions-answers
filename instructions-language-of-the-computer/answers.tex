@@ -86,11 +86,32 @@ done:   jr      $ra
 \end{enumerate}
 
 \section{عملیات‌های شرطی \lr{(Branches)}}
-
 \subsection{مقدار نهایی چیست؟}
+\begin{enumerate}
+    \item 20
+    \item 20
+\end{enumerate}
 
+\newpage
 \subsection{کد اسمبلی را بنویسید}
-
+\begin{latin}
+\begin{lstlisting}[keywords={addi, beq, add, sll, sw, slt, bne, }]
+        addi    $t0, $0, 0
+        beq     $0, $0, TEST1
+LOOP1:  addi    $t1, $0, 0
+        beq     $0, $0, TEST2
+LOOP2:  add     $t3, $t0, $t1
+        sll     $t2, $t1, 4
+        add     $t2, $t2, $s2
+        sw      $t3, ($t2)
+        addi    $t1, $t1, 1
+TEST2:  slt     $t2, $t1, $s1
+        bne     $t2, $0, LOOP2
+        addi    $t0, $t0, 1
+TEST1:  slt     $t2, $t0, $s0
+        bne     $t2, $0, LOOP1
+\end{lstlisting}
+\end{latin}
 \section{توابع}
 
 \subsection{تابع \lr{\texttt{positive}}}
