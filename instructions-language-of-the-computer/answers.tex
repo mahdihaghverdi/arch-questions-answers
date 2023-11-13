@@ -130,13 +130,41 @@ exit:   add     $v0, $t1, $0
         jr      $ra
 addit:  add     $v0, $a0, $a1
         jr      $ra
-# 13 instructions worst-case
 \end{lstlisting}
 \end{latin}
 \subsection{\lr{In-line} کردن تابع}
-
+\begin{latin}
+\begin{lstlisting}[keywords={add, addi, slt, bne, jr}]
+positive:
+        add     $t0, $a0, $a1
+        addi    $v0, $0, 1
+        slt     $t2, $0, $t0
+        bne     $t2, $0, exit
+        addi    $v0, $0, $0
+exit:
+        jr      $ra
+\end{lstlisting}
+\end{latin}
 \subsection{چندین بار صدا زده شدن تابع}
-
+\begin{latin}
+\begin{lstlisting}[keywords={addi, sw, move, jal, add, lw, jr}]
+f:  addi    $sp, $sp, −12
+    sw      $ra, 8($sp)
+    sw      $s1, 4($sp)
+    sw      $s0, 0($sp)
+    move    $s1, $a2
+    move    $s0, $a3
+    jal     func
+    move    $a0, $v0
+    add     $a1, $s0, $s1
+    jal     func
+    lw      $ra, 8($sp)
+    lw      $s1, 4($sp)
+    lw      $s0, 0($sp)
+    addi    $sp, $sp, 12
+    jr      $ra
+\end{lstlisting}
+\end{latin}
 \section{توابع بازگشتی}
 
 \subsection{تابع فاکتوریل}
