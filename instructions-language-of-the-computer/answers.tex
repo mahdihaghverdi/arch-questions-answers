@@ -113,9 +113,26 @@ TEST1:  slt     $t2, $t0, $s0
 \end{lstlisting}
 \end{latin}
 \section{توابع}
-
 \subsection{تابع \lr{\texttt{positive}}}
-
+\begin{latin}
+\begin{lstlisting}[keywords={addi, sw, jal, slt, bne, add, lw, jr}]
+positive:
+        addi    $sp, $sp, −4
+        sw      $ra, 0($sp)
+        jal     addit
+        addi    $t1, $0, 1
+        slt     $t2, $0, $v0
+        bne     $t2, $0, exit
+        addi    $t1, $0, $0
+exit:   add     $v0, $t1, $0
+        lw      $ra, 0($sp)
+        addi    $sp, $sp, 4
+        jr      $ra
+addit:  add     $v0, $a0, $a1
+        jr      $ra
+# 13 instructions worst-case
+\end{lstlisting}
+\end{latin}
 \subsection{\lr{In-line} کردن تابع}
 
 \subsection{چندین بار صدا زده شدن تابع}
