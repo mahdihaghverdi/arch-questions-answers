@@ -217,5 +217,27 @@ L1:     addi $a0, $a0, −1
 \end{lstlisting}
 \end{latin}
 \subsection{تابع فیبوناچی}
-
+\begin{latin}
+\begin{lstlisting}[keywords={addi, sw, slti, beq, addi, j, jal, add, lw, jr}]
+FIB:    addi    $sp, $sp, −12
+        sw      $ra, 8($sp)
+        sw      $s1, 4($sp)
+        sw      $a0, 0($sp)
+        slti    $t0, $a0, 3
+        beq     $t0, $0, L1
+        addi    $v0, $0, 1
+        j       EXIT
+L1:     addi    $a0, $a0, −1
+        jal     FIB
+        addi    $s1, $v0, $0
+        addi    $a0, $a0, −1
+        jal     FIB
+        add     $v0, $v0, $s1
+EXIT:   lw      $a0, 0($sp)
+        lw      $s1, 4($sp)
+        lw      $ra, 8($sp)
+        addi    $sp, $sp, 12
+        jr      $ra
+\end{lstlisting}
+\end{latin}
 \end{document}
