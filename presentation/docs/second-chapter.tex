@@ -379,7 +379,7 @@ fact:
 \end{frame}
 
 \begin{frame}[fragile]{Answer (Cont'd)}
-\begin{lstlisting}[keywordstyle=\color{purple}\textbf, keywords={addi, jal, lw, mul, jr}, , numbers=none]
+\begin{lstlisting}[keywordstyle=\color{purple}\textbf, keywords={addi, jal, lw, mul, jr}, numbers=none]
 L1: 
     addi $a0, $a0, –1  # n >= 1: argument gets (n – 1)
     jal fact           # call fact with (n – 1)
@@ -395,4 +395,63 @@ L1:
 \end{frame}
 
 \section{MIPS Addressing for 32-Bit Immediates and Addresses}
+\begin{frame}{Example - Loading a 32-Bit Constant}
+\begin{flushleft}
+What is the MIPS assembly code to load this 32-bit constant into register \texttt{\$s0}?
+
+\hspace{8mm}\texttt{0000 0000 0011 1101 0000 1001 0000 0000}
+\end{flushleft}
+\end{frame}
+
+\begin{frame}[fragile]{Answer}
+\begin{lstlisting}[keywordstyle=\color{purple}\textbf, keywords={lui, ori}]
+lui $s0, 61  # 61 decimal = 0000 0000 0011 1101 binary
+
+# value of $s0 
+# 0000 0000 0011 1101 0000 0000 0000 0000
+
+ori $s0, $s0, 2304 # 2304 decimal = 0000 1001 0000 0000
+
+# final value of #s0
+# 0000 0000 0011 1101 0000 1001 0000 0000
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Illustration of the five MIPS addressing modes}
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.6\textwidth, height=0.4\textheight]{docs/images/addr-1}
+\end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Illustration of the five MIPS addressing modes (Cont'd)}
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.8\textwidth, height=0.25\textheight]{docs/images/addr-2}
+\end{center}
+\end{figure}
+\end{frame}
+\begin{frame}{Illustration of the five MIPS addressing modes (Cont'd)}
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.8\textwidth, height=0.4\textheight]{docs/images/addr-3}
+\end{center}
+\end{figure}
+\end{frame}
+\begin{frame}{Illustration of the five MIPS addressing modes (Cont'd)}
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.8\textwidth, height=0.45\textheight]{docs/images/addr-4}
+\end{center}
+\end{figure}
+\end{frame}
+\begin{frame}{Illustration of the five MIPS addressing modes (Cont'd)}
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.8\textwidth, height=0.4\textheight]{docs/images/addr-5}
+\end{center}
+\end{figure}
+\end{frame}
+
 \section{A C Sort Example to Put It All Together}
