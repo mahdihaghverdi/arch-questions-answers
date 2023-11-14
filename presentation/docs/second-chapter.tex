@@ -214,7 +214,7 @@ else:
 \end{frame}
 
 \begin{frame}[fragile]{Answer}
-\begin{lstlisting}
+\begin{lstlisting}[keywords={bne, add, j, sub}, keywordstyle=\color{purple}\textbf]
 bne $s3, $s4, Else       # go to Else if i != j
 add $s0, $s1, $s2        # f = g + h (skipped if i != j)
 j   Exit                 # go to Exit
@@ -223,6 +223,36 @@ Else:
 Exit:
 \end{lstlisting}    
 \end{frame}
+
+\begin{frame}[fragile]{Example - Compiling a \textit{while} Loop in C}
+\begin{flushleft}
+Here is a traditional loop in C:
+\begin{lstlisting}[language=c, keywordstyle=\color{purple}\textbf]
+while (save[i] == k){
+    i += 1;
+}
+\end{lstlisting}
+
+Assume that \texttt{i} and \texttt{k} correspond to registers \texttt{\$s3} and \texttt{\$s5} and the base of the
+array \texttt{save} is in \texttt{\$s6}.
+
+What is the MIPS assembly code corresponding to this
+C segment?
+\end{flushleft}
+\end{frame}
+
+\begin{frame}[fragile]{Answer}
+\begin{lstlisting}[keywords={sll, add, lw, bne, addi, j}, keywordstyle=\color{purple}\textbf]
+Loop:   sll     $t1,$s3,2       # Temp reg $t1 = i * 4
+        add     $t1,$t1,$s6     # $t1 = address of save[i]
+        lw      $t0,0($t1)      # Temp reg $t0 = save[i]
+        bne     $t0,$s5, Exit   # go to Exit if save[i] != k
+        addi    $s3,$s3,1       # i = i + 1
+        j       Loop            # go to Loop
+Exit:
+\end{lstlisting}    
+\end{frame}
+
 \section{Suporting Precedures in Computer Hardware}
 \section{MIPS Addressing for 32-Bit Immediates and Addresses}
 \section{A C Sort Example to Put It All Together}
