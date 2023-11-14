@@ -250,9 +250,63 @@ Loop:   sll     $t1,$s3,2       # Temp reg $t1 = i * 4
         addi    $s3,$s3,1       # i = i + 1
         j       Loop            # go to Loop
 Exit:
-\end{lstlisting}    
+\end{lstlisting}
 \end{frame}
 
 \section{Suporting Precedures in Computer Hardware}
+\begin{frame}{Six Steps}
+\begin{enumerate}
+\item Put parameters in a place where the procedure can access them.
+\item Transfer control to the procedure.
+\item Acquire the storage resources needed for the procedure. 
+\item Perform the desired task.
+\item Put the result value in a place where the calling program can access it. 
+\item Return control to the point of origin, since a procedure can be called from several points in a program.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Provided Registers}
+\begin{flushleft}
+MIPS software follows the following convention for procedure calling in allocating its 32 registers
+\end{flushleft}
+
+\begin{itemize}
+\item[-]
+\texttt{\$a0-\$a3}: four argument registers in which to pass parameters
+\item[-] \texttt{\$v0-\$v1}: two value registers in which to return values
+\item[-] \texttt{\$ra}: one return address register to return to the point of origin    
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Provided Registers (Cont'd)}
+\begin{itemize}
+\item[-] In addition to allocating these registers, MIPS assembly language includes an instruction just for the procedures: 
+
+\item[-]\textit{It jumps to an address and simultaneously saves the address of the following instruction in register \texttt{\$ra}.} 
+
+\item[-]The \textit{jump-and-link} instruction (\texttt{jal}) is simply written:
+
+\item[-] \texttt{jal ProcedureAddress}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Provided Registers (Cont'd)}
+\begin{itemize}
+\item[-] 
+The \textit{link} portion of the name means that an address or link is formed that points to
+the calling site to allow the procedure to return to the proper address. This ``link",
+stored in register \$ra (register 31), is called the return address. 
+
+\item[-] The return address
+is needed because the same procedure could be called from several parts of the
+program.
+
+\item[-]To support such situations, computers like MIPS use jump register instruction
+(\texttt{jr}), introduced above to help with case statements, meaning an unconditional
+jump to the address specified in a register:
+
+\item[-] \texttt{jr \$ra}
+\end{itemize}
+\end{frame}
 \section{MIPS Addressing for 32-Bit Immediates and Addresses}
 \section{A C Sort Example to Put It All Together}
