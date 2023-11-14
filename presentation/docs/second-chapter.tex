@@ -106,7 +106,7 @@ What is the compiled MIPS code?
 \end{itemize}
 \end{frame}
 
-\subsubsection{Memory Operands}
+\subsection{Memory Operands}
 \begin{frame}{Example - Compiling Using Load and Store}
 \begin{flushleft}
 Assume variable \texttt{h} is associated with register \texttt{\$s2} and the base address of the array \texttt{A} is in \texttt{\$s3}. 
@@ -131,7 +131,7 @@ ment below?
 \end{itemize}    
 \end{frame}
 
-\subsubsection{Constant or Immedidate Operands}
+\subsection{Constant or Immedidate Operands}
 \begin{frame}{Constant or Immedidate Operands}
 \begin{itemize}
 \item[-] \texttt{addi \$s3, \$s3, 4  $\, \, \, \, \,$ \# \$s3 = \$s3 + 4}
@@ -491,3 +491,208 @@ where the jump address is the 26 bits of the instruction concatenated with the u
 \end{frame}
 
 \section{A C Sort Example to Put It All Together}
+\begin{frame}[fragile]{A C procedure that swaps two locations in memory}
+\begin{lstlisting}[language=c, keywordstyle=\color{purple}\textbf]
+void swap(int v[], int k)
+{
+    int temp;
+    temp = v[k];
+    v[k] = v[k+1];
+    v[k+1] = temp;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{What to do?}
+\begin{enumerate}
+\item
+Allocate registers to program variables.
+
+\item
+Produce code for the body of the procedure.
+
+\item
+Preserve registers across the procedure invocation.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Register Allocation for \texttt{swap}}
+\begin{itemize}
+\item[-] Since swap has just two parameters, \texttt{v} and
+\texttt{k}, they will be found in registers \texttt{\$a0} and \texttt{\$a1}. 
+
+\item[-]The only other variable is \texttt{temp},
+which we associate with register \texttt{\$t0}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Code for the Body of the Procedure \texttt{swap}}
+\begin{lstlisting}[keywordstyle=\color{purple}\textbf, keywords={sll, add, lw, jr, sw}]
+swap: 
+    sll $t1, $a1, 2    # reg $t1 = k * 4
+    add $t1, $a0, $t1  # reg $t1 = v + (k * 4)
+                       # reg $t1 has the address of v[k]
+    
+    lw $t0, 0($t1)     # reg $t0 (temp) = v[k]
+    lw $t2, 4($t1)     # reg $t2 = v[k + 1]
+                       # refers to next element of v
+    
+    sw $t2, 0($t1)     # v[k] = reg $t2
+    sw $t0, 4($t1)     # v[k+1] = reg $t0 (temp)
+    
+    jr $ra             # return to calling routine
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{A C procedure that performs a sort on the array \texttt{v}}
+\begin{lstlisting}[language=c, keywordstyle=\color{purple}\textbf]
+void sort (int v[], int n)
+{
+    int i, j;
+    for (i = 0; i < n; i += 1) {
+        for (
+            j = i – 1;
+            j >= 0 && v[j] > v[j + 1];
+            j = 1
+        ) {
+            swap(v,j);
+        }
+    }
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Register Allocation for \texttt{sort}}
+\begin{itemize}
+\item[-]The two parameters of the procedure \texttt{sort}, \texttt{v} and \texttt{n}, are in the parameter registers
+\texttt{\$a0} and \texttt{\$a1}, 
+
+\item[-] and we assign register \texttt{\$s0} to \texttt{i} and register \texttt{\$s1} to \texttt{j}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Code for the Body of the Procedure \texttt{sort}}
+\begin{flushleft}
+Saving registers
+\begin{lstlisting}[keywordstyle=\color{purple}\textbf, keywords={addi, sw}, numbers=none]
+sort: 
+    addi $sp, $sp, –20  # make room on stack for 5 registers
+    sw   $ra, 16($sp)   # save $ra on stack
+    sw   $s3, 12($sp)   # save $s3 on stack
+    sw   $s2, 8($sp)    # save $s2 on stack
+    sw   $s1, 4($sp)    # save $s1 on stack
+    sw   $s0, 0($sp)    # save $s0 on stack
+    ...
+\end{lstlisting}
+\end{flushleft}
+\end{frame}
+
+\begin{frame}[fragile]{Code for the Body of the Procedure \texttt{sort} (Cont'd)}
+\begin{flushleft}
+Move parameters 
+\begin{lstlisting}[keywordstyle=\color{purple}\textbf, keywords={move}, numbers=none]
+    ...
+    move $s2, $a0      # copy parameter $a0 into $s2 (save $a0)
+    move $s3, $a1      # copy parameter $a1 into $s3 (save $a1)
+    ...
+\end{lstlisting}
+\end{flushleft}
+\end{frame}
+
+\begin{frame}[fragile]{Code for the Body of the Procedure \texttt{sort} (Cont'd)}
+\begin{flushleft}
+Outer loop
+\begin{lstlisting}[keywordstyle=\color{purple}\textbf, keywords={move, slt, beq}, numbers=none]
+...
+    move $s0, $zero         # i = 0
+for1tst: 
+    slt  $t0, $s0, $s3      # reg $t0 = 0 if $s0 Š $s3 (i Š n)
+    beq  $t0, $zero, exit1  # go to exit1 if $s0 Š $s3 (i Š n)
+...
+\end{lstlisting}
+\end{flushleft}
+\end{frame}
+
+\begin{frame}[fragile]{Code for the Body of the Procedure \texttt{sort} (Cont'd)}
+\begin{flushleft}
+Inner loop
+\begin{lstlisting}[keywordstyle=\color{purple}\textbf, keywords={addi, slti, bne, add, sll, lw, slt, beq}, numbers=none]
+...
+    addi $s1, $s0, –1       # j = i – 1
+for2tst: 
+    slti $t0, $s1, 0        # reg $t0 = 1 if $s1 < 0 (j < 0)
+    bne  $t0, $zero, exit2  # go to exit2 if $s1 < 0 (j < 0)
+    sll  $t1, $s1, 2        # reg $t1 = j * 4
+    add  $t2, $s2, $t1      # reg $t2 = v + (j * 4)
+    lw   $t3, 0($t2)        # reg $t3 = v[j]
+    lw   $t4, 4($t2)        # reg $t4 = v[j + 1]
+    slt  $t0, $t4, $t3      # reg $t0 = 0 if $t4 Š $t3
+    beq  $t0, $zero, exit2  # go to exit2 if $t4 Š $t3
+...
+\end{lstlisting}
+\end{flushleft}
+\end{frame}
+
+\begin{frame}[fragile]{Code for the Body of the Procedure \texttt{sort} (Cont'd)}
+    \begin{flushleft}
+Pass parameters and call \texttt{swap}
+\begin{lstlisting}[keywordstyle=\color{purple}\textbf, keywords={move, jal}, numbers=none]
+...
+    move $a0, $s2  # 1st parameter of swap is v (old $a0)
+    move $a1, $s1  # 2nd parameter of swap is j
+    jal  swap       # swap
+...
+\end{lstlisting}
+\end{flushleft}
+\end{frame}
+
+\begin{frame}[fragile]{Code for the Body of the Procedure \texttt{sort} (Cont'd)}
+\begin{flushleft}
+Inner loop
+\begin{lstlisting}[keywordstyle=\color{purple}\textbf, keywords={addi, j}, numbers=none]
+...
+    addi $s1, $s1, –1  # j –= 1
+    j    for2tst       # jump to test of inner loop
+...
+\end{lstlisting}
+\end{flushleft}
+\end{frame}
+
+\begin{frame}[fragile]{Code for the Body of the Procedure \texttt{sort} (Cont'd)}
+\begin{flushleft}
+Outer loop
+\begin{lstlisting}[keywordstyle=\color{purple}\textbf, keywords={addi, j}, numbers=none]
+...
+    addi $s0, $s0, 1  # i += 1
+    j    for1tst      # jump to test of outer loop
+...
+\end{lstlisting}
+\end{flushleft}
+\end{frame}
+
+\begin{frame}[fragile]{Code for the Body of the Procedure \texttt{sort} (Cont'd)}
+\begin{flushleft}
+Restoring Registers
+\begin{lstlisting}[keywordstyle=\color{purple}\textbf, keywords={lw, addi}, numbers=none]
+...
+exit1: 
+    lw   $s0, 0($sp)  # restore $s0 from stack
+    lw   $s1, 4($sp)  # restore $s1 from stack
+    lw   $s2, 8($sp)  # restore $s2 from stack
+    lw   $s3,12($sp)  # restore $s3 from stack
+    lw   $ra,16($sp)  # restore $ra from stack
+    addi $sp,$sp, 20  # restore stack pointer
+...
+\end{lstlisting}
+\end{flushleft}
+\end{frame}
+
+\begin{frame}[fragile]{Code for the Body of the Procedure \texttt{sort} (Cont'd)}
+\begin{flushleft}
+Procedure return
+\begin{lstlisting}[keywordstyle=\color{purple}\textbf, keywords={jr}, numbers=none]
+...
+jr $ra # return to calling routine
+\end{lstlisting}
+\end{flushleft}
+\end{frame}
