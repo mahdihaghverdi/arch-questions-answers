@@ -174,7 +174,55 @@ J-format & J & op & \multicolumn{5}{|c|}{address} & Unconditional Branch \\
 \end{center}
 \end{figure}
 \end{frame}
+
 \section{Instuctions for Making Decisions}
+\begin{frame}{Instructions for Making Decisions}
+\begin{itemize}
+\item[-]
+\texttt{beq register1, register2, L1}
+
+This instruction means go to the statement labeled \texttt{L1} if the value in \texttt{register1}
+equals the value in \texttt{register2}.
+
+The mnemonic beq stands for \textit{branch if equal}.
+
+\vspace{5mm}
+\item[-]
+\texttt{bne register1, register2, L1}
+
+It means go to the statement labeled \texttt{L1} if the value in \texttt{register1} does not equal
+the value in \texttt{register2}.
+
+The mnemonic \texttt{bne} stands for \textit{branch if not equal}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Example - Compiling \textit{if-then-else} into Conditional Branches}
+\begin{flushleft}
+In the following code segment, \texttt{f}, \texttt{g}, \texttt{h}, \texttt{i}, and \texttt{j} are variables. 
+
+If the five variables, \texttt{f} through \texttt{j}, correspond to the five registers \texttt{\$s0} through \texttt{\$s4}, what is the
+compiled MIPS code for this C if statement?
+
+\begin{lstlisting}[language=python, keywordstyle=\color{purple}\textbf]
+if i == j:
+    f = g + h
+else:
+    f = g – h
+\end{lstlisting}
+\end{flushleft}
+\end{frame}
+
+\begin{frame}[fragile]{Answer}
+\begin{lstlisting}
+bne $s3, $s4, Else       # go to Else if i != j
+add $s0, $s1, $s2        # f = g + h (skipped if i != j)
+j   Exit                 # go to Exit
+Else: 
+    sub $s0, $s1, $s2    # f = g – h (skipped if i = j)
+Exit:
+\end{lstlisting}    
+\end{frame}
 \section{Suporting Precedures in Computer Hardware}
 \section{MIPS Addressing for 32-Bit Immediates and Addresses}
 \section{A C Sort Example to Put It All Together}
