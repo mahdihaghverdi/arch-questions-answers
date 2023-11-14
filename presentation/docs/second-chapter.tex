@@ -55,8 +55,98 @@ load upper immed & \texttt{lui \$s1, 20} & \texttt{\$s1 = 20 * $2^{16}$} & Loads
 \end{figure}
 \end{frame}
 
+\begin{frame}{Example - Compiling a Complex C Assignment into MIPS}
+\begin{flushleft}
+A somewhat complex statement contains the five variables \texttt{f}, \texttt{g}, \texttt{h}, \texttt{i}, and \texttt{j}:
+
+\hspace{8mm}\texttt{f = (g + h) – (i + j);}
+
+What might a C compiler produce?
+\end{flushleft}
+\end{frame}
+
+\begin{frame}[fragile]{Answer}
+\begin{itemize}
+\item[-]
+\texttt{add t0, g, h \# temporary variable t0 contains g + h}
+
+\item[-]
+\texttt{add t1, i, j \# temporary variable t1 contains i + j}
+
+\item[-]
+\texttt{sub f, t0, t1 \# f gets t0 – t1, which is (g + h) – (i + j)}
+\end{itemize}
+\end{frame}
+
 \subsection{Operands of the Computer Hardware}
+\begin{frame}{Example - Compiling a C Assignment Using Registers}
+\begin{flushleft}
+It is the compiler’s job to associate program variables with registers. 
+
+Take, for instance, the assignment statement from our earlier example:
+
+\hspace{8mm}\texttt{f = (g + h) – (i + j);}
+
+The variables \texttt{f}, \texttt{g}, \texttt{h}, \texttt{i}, and \texttt{j} are assigned to the registers \texttt{\$s0}, \texttt{\$s1}, \texttt{\$s2}, \texttt{\$s3},
+and \texttt{\$s4}, respectively. 
+
+What is the compiled MIPS code?
+\end{flushleft}
+\end{frame}
+
+\begin{frame}[fragile]{Answer}
+\begin{itemize}
+\item[-]
+\texttt{add \$t0, \$s1, \$s2  \# register \$t0 contains g + h}
+
+\item[-]
+\texttt{add \$t1, \$s3, \$s4  \# register \$t1 contains i + j}
+
+\item[-]
+\texttt{sub \$s0, \$t0, \$t1  \# f gets \$t0 – \$t1, which is (g + h) – (i + j)}
+\end{itemize}
+\end{frame}
+
+\subsubsection{Memory Operands}
+\begin{frame}{Example - Compiling Using Load and Store}
+\begin{flushleft}
+Assume variable \texttt{h} is associated with register \texttt{\$s2} and the base address of the array \texttt{A} is in \texttt{\$s3}. 
+
+What is the MIPS assembly code for the C assignment state­
+ment below?
+
+\hspace{8mm}\texttt{A[12] = h + A[8];}
+\end{flushleft}
+\end{frame}
+
+\begin{frame}{Answer}
+\begin{itemize}
+\item[-]
+\texttt{lw \$t0, 32(\$s3) \# Temporary reg \$t0 gets A[8]}
+
+\item[-]
+\texttt{add \$t0, \$s2, \$t0  \# Temporary reg \$t0 gets h + A[8]}
+
+\item[-]
+\texttt{sw \$t0, 48(\$s3)  \# Stores h + A[8] back into A[12]}
+\end{itemize}    
+\end{frame}
+
+\subsubsection{Constant or Immedidate Operands}
+\begin{frame}{Constant or Immedidate Operands}
+\begin{itemize}
+\item[-] \texttt{addi \$s3, \$s3, 4  $\, \, \, \, \,$ \# \$s3 = \$s3 + 4}
+\end{itemize}
+\end{frame}
+
 \subsection{Representing Instructions}
+\begin{frame}{Insructions Big Picture}
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth, height=0.55\textheight]{docs/images/instructions}
+\end{center}
+\end{figure}
+\end{frame}
 \subsection{Logical Operations}
 \subsection{Instuctions for Making Decisions}
 \subsection{Suporting Precedures in Computer Hardware}
