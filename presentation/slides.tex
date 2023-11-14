@@ -21,6 +21,10 @@
 \usepackage{xurl}
 %---------------------------------------------------
 
+
+\usepackage{adjustbox}
+\usepackage{multirow}
+\usepackage{float}
 \usefonttheme{serif}
 \usepackage{graphicx}
 \usepackage{color}
@@ -41,7 +45,7 @@ Hosna Rajaei\\
     \\\includegraphics[height=1.2cm]{logos/logo}\\
     Isfahan University
 }
-
+\renewcommand{\arraystretch}{1.4}
 \begin{document}
 \begin{frame}[plain]
 \begin{center}
@@ -58,4 +62,7 @@ In the name of Allah
 \tableofcontents
 \end{flushleft}
 \end{frame}
+
+\input{docs/first-chapter}
+\input{docs/second-chapter}
 \end{document}
