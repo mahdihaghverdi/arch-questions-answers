@@ -1,0 +1,30 @@
+\section{Questions}
+\begin{frame}[fragile]{C to Assembly}
+\begin{lstlisting}[language=c, keywordstyle=\color{purple}\textbf]
+void shift(int a[], int n){
+    int i;
+    for(i=0;i!=n-1;i++) {
+        a[i]=a[i+1];
+    }
+}
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{Answer}
+\begin{lstlisting}[keywordstyle=\color{purple}\textbf, keywords={move, addi, beq, sll, add, lw, sw, j, jr}]
+shift:
+    move $t0, $0
+    addi $t1, $a1, −1
+loop:
+    beq  $t0, $t1, done
+    sll  $t2, $t0, 2
+    add  $t2, $t2, $a0
+    lw   $t3, 4($t2)
+    sw   $t3, 0($t2)
+    addi $t0,$t0,1
+    j    loop
+done:
+    jr $ra
+\end{lstlisting}
+\end{frame}
