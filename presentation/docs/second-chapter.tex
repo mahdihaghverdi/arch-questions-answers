@@ -7,77 +7,6 @@
 \end{figure}
 \end{frame}
 
-\begin{frame}{Operations of the Computer Hardware (Cont'd)}
-\begin{table}[H]
-\begin{adjustbox}{width=\textwidth}
-\begin{tabular}{|c|c|c|c|}
-\hline
-load word & \texttt{lw \$s1, 20(\$s2)} & \texttt{\$s1 = Memory[\$s2 + 20]} & Word from memory to register \\
-\hline
-store word & \texttt{sw \$s1, 20(\$s2)} & \texttt{Memory[\$s2 + 20] = \$s1} & Word from register to memory \\
-\hline
-load byte & \texttt{lb \$s1, 20(\$s2)} & \texttt{\$s1 = Memory[\$s2 + 20]} & Byte from memory to register \\
-\hline
-load byte unsigned & \texttt{lbu \$s1, 20(\$s2)} & \texttt{\$s1 = Memory[\$s2 + 20]} & Byte from memory to register \\
-\hline
-store byte & \texttt{sb \$s1, 20(\$s2)} & \texttt{Memory[\$s2 + 20] = \$s1} & Byte from register to memory \\
-\hline
-load upper immed & \texttt{lui \$s1, 20} & \texttt{\$s1 = 20 * $2^{16}$} & Loads constant in upper 16 bits \\
-\hline
-\end{tabular}
-\end{adjustbox}
-\caption{Data Transfer Instructions in MIPS}
-\end{table}
-\end{frame}
-
-\begin{frame}{Operations of the Computer Hardware (Cont'd)}
-\begin{figure}\caption{Logical Instructions in MIPS}
-\begin{center}
-\includegraphics[width=\textwidth, height=0.4\textheight]{docs/images/operations-3}
-\end{center}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Operations of the Computer Hardware (Cont'd)}
-\begin{figure}\caption{Conditional Branch Instructions in MIPS}
-\begin{center}
-\includegraphics[width=\textwidth, height=0.5\textheight]{docs/images/operations-4}
-\end{center}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Operations of the Computer Hardware (Cont'd)}
-\begin{figure}\caption{Unconditional Jump Instructions in MIPS}
-\begin{center}
-\includegraphics[width=\textwidth, height=0.17\textheight]{docs/images/operations-5  }
-\end{center}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Example - Compiling a Complex C Assignment into MIPS}
-\begin{flushleft}
-A somewhat complex statement contains the five variables \texttt{f}, \texttt{g}, \texttt{h}, \texttt{i}, and \texttt{j}:
-
-\hspace{8mm}\texttt{f = (g + h) – (i + j);}
-
-What might a C compiler produce?
-\end{flushleft}
-\end{frame}
-
-\begin{frame}[fragile]{Answer}
-\begin{itemize}
-\item[-]
-\texttt{add t0, g, h \# temporary variable t0 contains g + h}
-
-\item[-]
-\texttt{add t1, i, j \# temporary variable t1 contains i + j}
-
-\item[-]
-\texttt{sub f, t0, t1 \# f gets t0 – t1, which is (g + h) – (i + j)}
-\end{itemize}
-\end{frame}
-
-\section{Operands of the Computer Hardware}
 \begin{frame}{Example - Compiling a C Assignment Using Registers}
 \begin{flushleft}
 It is the compiler’s job to associate program variables with registers. 
@@ -106,7 +35,29 @@ What is the compiled MIPS code?
 \end{itemize}
 \end{frame}
 
-\subsection{Memory Operands}
+\begin{frame}{Operations of the Computer Hardware (Cont'd)}
+\begin{table}[H]
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{|c|c|c|c|}
+\hline
+load word & \texttt{lw \$s1, 20(\$s2)} & \texttt{\$s1 = Memory[\$s2 + 20]} & Word from memory to register \\
+\hline
+store word & \texttt{sw \$s1, 20(\$s2)} & \texttt{Memory[\$s2 + 20] = \$s1} & Word from register to memory \\
+\hline
+load byte & \texttt{lb \$s1, 20(\$s2)} & \texttt{\$s1 = Memory[\$s2 + 20]} & Byte from memory to register \\
+\hline
+load byte unsigned & \texttt{lbu \$s1, 20(\$s2)} & \texttt{\$s1 = Memory[\$s2 + 20]} & Byte from memory to register \\
+\hline
+store byte & \texttt{sb \$s1, 20(\$s2)} & \texttt{Memory[\$s2 + 20] = \$s1} & Byte from register to memory \\
+\hline
+load upper immed & \texttt{lui \$s1, 20} & \texttt{\$s1 = 20 * $2^{16}$} & Loads constant in upper 16 bits \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{Data Transfer Instructions in MIPS}
+\end{table}
+\end{frame}
+
 \begin{frame}{Example - Compiling Using Load and Store}
 \begin{flushleft}
 Assume variable \texttt{h} is associated with register \texttt{\$s2} and the base address of the array \texttt{A} is in \texttt{\$s3}. 
@@ -131,11 +82,28 @@ ment below?
 \end{itemize}    
 \end{frame}
 
-\subsection{Constant or Immedidate Operands}
-\begin{frame}{Constant or Immedidate Operands}
-\begin{itemize}
-\item[-] \texttt{addi \$s3, \$s3, 4  $\, \, \, \, \,$ \# \$s3 = \$s3 + 4}
-\end{itemize}
+\begin{frame}{Operations of the Computer Hardware (Cont'd)}
+\begin{figure}\caption{Logical Instructions in MIPS}
+\begin{center}
+\includegraphics[width=\textwidth, height=0.4\textheight]{docs/images/operations-3}
+\end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Operations of the Computer Hardware (Cont'd)}
+\begin{figure}\caption{Conditional Branch Instructions in MIPS}
+\begin{center}
+\includegraphics[width=\textwidth, height=0.5\textheight]{docs/images/operations-4}
+\end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Operations of the Computer Hardware (Cont'd)}
+\begin{figure}\caption{Unconditional Jump Instructions in MIPS}
+\begin{center}
+\includegraphics[width=\textwidth, height=0.17\textheight]{docs/images/operations-5  }
+\end{center}
+\end{figure}
 \end{frame}
 
 \section{Representing Instructions}
