@@ -28,3 +28,106 @@ done:
     jr $ra
 \end{lstlisting}
 \end{frame}
+
+\begin{frame}[fragile]{Branches - C to Assembly}
+\begin{lstlisting}[language=c, keywordstyle=\color{purple}\textbf]
+LOOP:
+    slt  $t2, $0, $t1
+    beq  $t2, $0, DONE
+    subi $t1, $t1, 1
+    addi $s2, $s2, 2
+    j    LOOP
+DONE:
+\end{lstlisting}    
+\end{frame}
+
+\begin{frame}[fragile]{Branches - C to Assembly}
+\begin{lstlisting}[language=c, keywordstyle=\color{purple}\textbf]
+for(i=0; i<a; i++)
+    a += b;
+\end{lstlisting}    
+\end{frame}
+
+\begin{frame}[fragile]{Branches - C to Assembly}
+\begin{lstlisting}[keywords={addi, beq, add, slt, bne}, keywordstyle=\color{purple}\textbf]
+    addi $t0, $0, 0
+    beq  $0, $0, TEST
+LOOP: 
+    add  $s0, $s0, $s1
+    addi $t0, $t0, 1
+TEST: 
+    slt $t2, $t0, $s0
+    bne $t2, $0, LOOP
+\end{lstlisting}    
+\end{frame}
+
+
+\begin{frame}[fragile]{Recursive Functions}
+\begin{lstlisting}[keywordstyle=\color{purple}\textbf, language=python]
+def fact(n):
+    if n < 1:
+        return 1
+    return n * fact(n - 1)
+\end{lstlisting}    
+\end{frame}
+
+\begin{frame}[fragile]{Branches - C to Assembly}
+\begin{lstlisting}[keywords={addi, sw, add, slti, beq, mul, jr, jal, lw}, keywordstyle=\color{purple}\textbf]
+FACT: addi $sp, $sp, −8   # make room in stack for 2 more items
+      sw   $ra, 4($sp)    # save the return address
+      sw   $a0, 0($sp)    # save the argument n
+      slti $t0, $a0, 1    # $t0 = 1 if $a0 < 1 else 0
+      beq, $t0, $zero, L1 # if $t0 = 0, goto L1
+      add  $v0, $zero, 1  # return 1
+      add  $sp, $sp, 8    # pop two items from the stack
+      jr   $ra            # return to the instruction after jal
+    
+L1:   addi $a0, $a0, −1   # subtract 1 from argument
+      jal  FACT           # call fact(n - 1)
+      lw   $a0, 0($sp)    # just returned from jal: restore n
+      lw   $ra, 4($sp)    # restore the return address
+      add  $sp, $sp, 8    # pop two items from the stack
+      mul  $v0, $a0, $v0  # return n*fact(n−1)
+      jr   $ra            # return to the caller
+\end{lstlisting}    
+\end{frame}
+
+
+\begin{frame}[fragile]{Recursive Functions}
+\begin{lstlisting}[keywordstyle=\color{purple}\textbf, language=python]
+def fib(n):
+   if n < 3:
+       return 1
+   return fib(n - 1) + fib(n - 2)
+\end{lstlisting}    
+\end{frame}
+
+\begin{frame}[fragile]{Fibobacci Sequence}
+\begin{lstlisting}[keywordstyle=\color{purple}\textbf, numbers=none, keywords={addi, sw, slti, beq, j, jal, add}]
+FIB:  addi $sp, $sp, −12
+      sw   $ra, 8($sp)
+      sw   $s1, 4($sp)
+      sw   $a0, 0($sp)
+      slti $t0, $a0, 3      # $t0: 1 if $a0 < 3 else 0
+      beq  $t0, $zero, L1
+      addi $v0, $zero, 1    # base case return 1
+      j    EXIT
+
+L1:   addi $a0, $a0, −1     # n = n - 1
+      jal  FIB              # $v0 = fib(n - 1)
+      addi $s1, $v0, $zero  # store the first returned result
+      addi $a0, $a0, −1     # n = n - 1 -> n - 2 
+      jal  FIB              # $v0 = fib(n - 2)
+      add  $v0, $v0, $s1    # fib(n - 1) + fib(n - 2)
+\end{lstlisting}    
+\end{frame}
+
+\begin{frame}[fragile]{Fibobacci Sequence (Cont'd)}
+\begin{lstlisting}[keywordstyle=\color{purple}\textbf, numbers=none, keywords={lw, addi, jr}]
+EXIT: lw   $a0, 0($sp)
+      lw   $s1, 4($sp)
+      lw   $ra, 8($sp)
+      addi $sp, $sp, 12
+      jr   $ra
+\end{lstlisting}    
+\end{frame}
