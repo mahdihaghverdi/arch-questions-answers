@@ -75,6 +75,27 @@
 
 \section{سیگنال‌های کنترلی در یک پردازنده‌ی \lr{Single Cycle}}
 
+سیگنال‌های کنترلی تولید شده در اجرای این دستورات را ذکر کنید.
+\begin{latin}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+& Instruction & Interpretation \\
+\hline
+a. &
+\texttt{AND Rd, Rs, Rt} &
+\texttt{Reg[Rd] = Reg[Rs] AND Reg[Rt]} \\
+\hline
+b. &
+\texttt{SW Rt, Offs(Rs)} &
+\texttt{Mem[Reg[Rs] + Offs] = Reg[Rt]} \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+\end{latin}
+
 \section{پیش‌نیاز‌‌های داده‌ای}
 \subsection{}
 \subsection{}
