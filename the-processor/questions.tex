@@ -192,9 +192,61 @@ b. &
 \subsection{اتفاقات هنگام اجرا}
 چه اتفاقی حین مرحله‌ی \lr{Execution} و \lr{Memory} می‌افتد؟
 
+
 \section{\lr{Execution} در یک \lr{CPU} عه \lr{Pipeline} شده}
+برای هر یک از دستورات زیر، در هر یک از \lr{stage}های پایپ‌لاین، چه سینگال‌های کنترلی تولید می‌شوند؟
+\begin{latin}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|l|}
+\hline
+& Instruction Sequence \\
+\hline
+a. &
+\texttt{LW R1, 32(R2)} \\
+\hline
+b. &
+\texttt{OR R1, R5, R6} \\ 
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+\end{latin}
 
 \section{\lr{Hazard}ها}
+تمامی \lr{Hazard}ها را برای یک پردازنده‌ پایپ‌لاین شده با ۵ \lr{stage} 
+\begin{itemize}
+\item 
+اگر فورواردینگ نداشته باشیم
+\item 
+اگر فوروادینگ داشته باشیم
+\end{itemize}
+بنویسید.
 
-\section{ارتباط بین \lr{Forwarding}، \lr{Hazard} و \lr{ISA Desing}}
+\begin{latin}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|l|}
+\hline
+& Instruction Sequence \\
+\hline
+a. &
+\makecell[l]{
+\texttt{ADD R1, R2, R1} \\ 
+\texttt{LW R2, 0(R1)} \\ 
+\texttt{LW R1, 4(R1)} \\
+\texttt{OR R3, R1, R2}} \\ 
+\hline
+b. &
+\makecell[l]{
+\texttt{LW R1, 0(R1)} \\ 
+\texttt{AND R1, R1, R2} \\ 
+\texttt{LW R2, 0(R1)} \\
+\texttt{LW R1, 0(R3)}}\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+\end{latin}
+
 \end{document}
