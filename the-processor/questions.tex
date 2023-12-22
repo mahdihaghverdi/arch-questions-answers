@@ -156,17 +156,41 @@ a. &
 \hline
 b. &
 \makecell[l]{
-\texttt{SW R2,0(R3)} \\ 
-\texttt{OR R1,R2,R3} \\ 
-\texttt{BEQ R2,R0,Label ; Assume R2 == R0} \\
-\texttt{OR R2,R2,R0} \\
-\texttt{Label: ADD R1,R4,R3}}\\
+\texttt{SW R2, 0(R3)} \\ 
+\texttt{OR R1, R2, R3} \\ 
+\texttt{BEQ R2, R0, Label ; Assume R2 == R0} \\
+\texttt{OR R2, R2, R0} \\
+\texttt{Label: ADD R1, R4, R3}}\\
 \hline
 \end{tabular}
 \end{center}
 \end{table}
 \end{latin}
+
 \section{رجیستر‌های \lr{Pipeline}ها}
+دستورات زیر را در نظر بگیرید
+\begin{latin}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|l|}
+\hline
+& Instruction Sequence \\
+\hline
+a. &
+\texttt{SW R16, –100(R6)} \\
+\hline
+b. &
+\texttt{OR R2, R1, R0} \\ 
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+\end{latin}
+\subsection{رجیستر‌های \lr{Pipeline}}
+وقتی که این دستورات اجرا می‌شوند، که داده‌هایی در ریجستر‌های این پردازنده‌ی پایپ‌لاین شده ذخیره می‌شوند؟
+
+\subsection{اتفاقات هنگام اجرا}
+چه اتفاقی حین مرحله‌ی \lr{Execution} و \lr{Memory} می‌افتد؟
 
 \section{\lr{Execution} در یک \lr{CPU} عه \lr{Pipeline} شده}
 
