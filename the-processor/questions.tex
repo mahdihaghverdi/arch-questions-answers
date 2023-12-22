@@ -19,6 +19,7 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage{xcolor}
+\usepackage{makecell}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -97,9 +98,41 @@ b. &
 \end{latin}
 
 \section{پیش‌نیاز‌‌های داده‌ای}
-\subsection{}
-\subsection{}
-\subsection{}
+دستورات زیر را در نظر بگیرید
+\begin{latin}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|l|}
+\hline
+& Instruction Sequence \\
+\hline
+a. &
+\makecell[l]{\texttt{SW R16, –100(R6)} \\ \texttt{LW  R4, 8(R16)} \\ \texttt{ADD R5, R4, R4}} \\
+\hline
+b. &
+\makecell[l]{\texttt{OR R1, R2, R3} \\ \texttt{OR R2, R1, R4} \\ \texttt{OR R1, R1, R2}}\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+\end{latin}
+
+\subsection{وابستگی‌ها}
+تمامی وابستگی‌ها در این سلسله دستورات را بنویسید.
+
+\subsection{افزودن \lr{NOOP} بدون وجود \lr{Full Forwarding}}
+فرض کنید هیچ فورواردینگی در پردازنده وجود ندارد، ابتدا بگویید کجا
+\lr{hazard}
+رخ می‌دهد و بین دستورات دستور 
+\lr{NOOP}
+بگذارید تا اجرا به درستی انجام بشود.
+
+\subsection{افزون \lr{NOOP} با وجود \lr{Full Forwarding}}
+حالا فرض کنید در این پردازنده، فول فورواردینگ وجود دارد، ابتدا بگویید کجا
+\lr{hazard}
+رخ می‌دهد و بین دستورات دستور 
+\lr{NOOP}
+بگذارید تا اجرا به درستی انجام بشود.
 
 \section{نوشتن یک \lr{Pipeline Stage}}
 
