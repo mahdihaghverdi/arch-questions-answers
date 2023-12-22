@@ -249,4 +249,47 @@ b. &
 \end{table}
 \end{latin}
 
+\section{ارتباط بین \lr{Forwarding}، \lr{Hazard} و \lr{ISA Desing}}
+
+\begin{latin}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|l|}
+\hline
+& Instruction Sequence \\
+\hline
+a. &
+\makecell[l]{
+\texttt{ADD R5, R2, R1} \\ 
+\texttt{LW R3, 4(R5)} \\ 
+\texttt{LW R2, 0(R2)} \\
+\texttt{OR R3, R5, R3} \\
+\texttt{SW R3, 0(R5)}} \\ 
+\hline
+b. &
+\makecell[l]{
+\texttt{LW R2, 0(R1)} \\ 
+\texttt{AND R1, R2, R1} \\ 
+\texttt{LW R3, 0(R2)} \\
+\texttt{LW R1, 0(R1)} \\ 
+\texttt{SW R1, 0(R2)}}\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+\end{latin}
+
+\subsection{افزودن \lr{NOOP}}
+فرض کنید هیچ فورواردینگی وجود ندارد، بین دستورات 
+\lr{NOOP}
+بیافزایید تا درست اجرا شوند.
+
+\subsection{جابجا کردن دستورات}
+تا آنجایی که می‌توانید دستورات را جابجا کنید تا از 
+\lr{hazard}ها
+جلوگیری شود، و آنجایی که دیگر نمیشود از 
+\lr{hazard}
+با جابجای جلوگیری کرد، دستور
+\lr{NOOP}
+تزریق کنید.
 \end{document}
