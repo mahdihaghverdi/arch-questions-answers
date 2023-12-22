@@ -135,7 +135,37 @@ b. &
 بگذارید تا اجرا به درستی انجام بشود.
 
 \section{نوشتن یک \lr{Pipeline Stage}}
+برای دستورات زیر، یک نمودار
+\lr{Pipeline Stage}
+بکشید، فرض کنید که در این پردازنده‌، \lr{Full forwarding} داریم.
 
+\begin{latin}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|l|}
+\hline
+& Instruction Sequence \\
+\hline
+a. &
+\makecell[l]{
+\texttt{SW R16, 12(R6)} \\ 
+\texttt{LW R16, 8(R6)} \\ 
+\texttt{BEQ R5, R4, Label ; Assume R5 != R4} \\
+\texttt{ADD R5, R1, R4} \\ 
+\texttt{SLT R5, R15, R4}} \\
+\hline
+b. &
+\makecell[l]{
+\texttt{SW R2,0(R3)} \\ 
+\texttt{OR R1,R2,R3} \\ 
+\texttt{BEQ R2,R0,Label ; Assume R2 == R0} \\
+\texttt{OR R2,R2,R0} \\
+\texttt{Label: ADD R1,R4,R3}}\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+\end{latin}
 \section{رجیستر‌های \lr{Pipeline}ها}
 
 \section{\lr{Execution} در یک \lr{CPU} عه \lr{Pipeline} شده}
