@@ -445,7 +445,57 @@ Nothing \\
 \end{center}
 \end{table}
 \end{latin}
+
 \section{\lr{Execution} در یک \lr{CPU} عه \lr{Pipeline} شده}
+هیچ سیگنالی در 
+\lr{\texttt{IF}}
+و
+\lr{\texttt{ID}}
+وارد نمی‌شود، باقی سیگنال‌ها:
+\begin{latin}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+&
+\texttt{EXE} &
+\texttt{MEM}&
+\texttt{WB}
+\\
+\hline
+\hline
+a. &
+\makecell[l]{
+ALUSrc = 1 \\
+ALUOp = 00 \\
+RegDst = 0}&
+\makecell[l]{
+Branch = 0 \\
+MemWrite = 0 \\
+MemRead = 1}&
+\makecell[l]{
+MemToReg = 0 \\
+RegWrite = 1}
+\\
+\hline
+b. &
+\makecell[l]{
+ALUSrc = 0 \\
+ALUOp = 10 \\
+RegDst = 1}&
+\makecell[l]{
+Branch = 0 \\
+MemWrite = 0 \\
+MemRead = 0}&
+\makecell[l]{
+MemToReg = 1 \\
+RegWrite = 1}
+\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+\end{latin}
 \section{\lr{Hazard}ها}
 \section{ارتباط بین \lr{Forwarding}، \lr{Hazard} و \lr{ISA Desing}}
 \end{document}
