@@ -537,5 +537,79 @@ b. &
 
 \section{ارتباط بین \lr{Forwarding}، \lr{Hazard} و \lr{ISA Desing}}
 \subsection{افزودن \lr{NOOP}}
+\begin{latin}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+a. &
+\makecell[l]{
+\texttt{ADD R5, R2, R1} \\
+\texttt{NOOP} \\
+\texttt{NOOP} \\
+\texttt{LW R3, 4(R5)} \\
+\texttt{LW R2, 0(R2)} \\
+\texttt{NOOP} \\
+\texttt{OR R3, R5, R3} \\
+\texttt{NOOP} \\
+\texttt{NOOP} \\
+\texttt{SW R3, 0(R5)}
+} \\
+\hline
+b. &
+\makecell[l]{
+\texttt{LW R2, 0(R1)} \\
+\texttt{NOOP} \\
+\texttt{NOOP} \\
+\texttt{AND R1, R2, R1} \\
+\texttt{LW R3, 0(R2)} \\
+\texttt{NOOP} \\
+\texttt{LW R1, 0(R1)} \\
+\texttt{NOOP} \\
+\texttt{NOOP} \\
+\texttt{SW R1, 0(R2)}
+} \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+\end{latin}
 \subsection{جابجا کردن دستورات}
+\begin{latin}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+a. &
+\makecell[l]{
+\texttt{ADD R5, R2, R1} \\
+\texttt{LW R3, 4(R5)} \\
+\texttt{NOOP} \\
+\texttt{LW R2, 0(R2)} \\
+\texttt{NOOP} \\
+\texttt{NOOP} \\
+\texttt{OR R3, R5, R3} \\
+\texttt{NOOP} \\
+\texttt{NOOP} \\
+\texttt{SW R3, 0(R5)}
+} \\
+\hline
+b. &
+\makecell[l]{
+\texttt{LW R2, 0(R1)} \\
+\texttt{NOOP} \\
+\texttt{NOOP} \\
+\texttt{AND R1, R2, R1} \\
+\texttt{LW R3, 0(R2)} \\
+\texttt{NOOP} \\
+\texttt{LW R1, 0(R1)} \\
+\texttt{NOOP} \\
+\texttt{NOOP} \\
+\texttt{SW R1, 0(R2)}
+} \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+\end{latin}
 \end{document}
