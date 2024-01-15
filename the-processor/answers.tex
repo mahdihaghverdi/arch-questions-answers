@@ -348,8 +348,80 @@ b. &
 \end{table}
 \end{latin}
 
+\newpage
 \section{رجیستر‌های \lr{Pipeline}ها}
 \subsection{رجیستر‌های \lr{Pipeline}}
+\begin{itemize}
+\item 
+برای هر دستورالعمل، رجیستر
+\lr{IF/ID}
+مقدار
+\lr{\texttt{PC + 4}}
+و خود دستورالعمل را نگه می دارد.
+
+\item 
+رجیستر
+\lr{ID/EX} 
+تمام سیگنال های کنترلی را برای
+\begin{itemize}
+\item \lr{EX}،
+\item \lr{MEM}،
+\item \lr{WB}،
+\item \lr{\texttt{PC + 4}}،
+\item دو مقدار خوانده شده از رجیستر‌ها،
+\item 
+16 بیت پایین دستورالعمل که 
+\rl{sign-extend}
+شده است و
+\item 
+قسمت های
+\lr{Rd} 
+و
+\lr{Rt}
+از دستورالعمل (حتی برای دستورالعمل هایی که فرمت آنها از این فیلدها استفاده نمی کند.)
+\end{itemize}
+
+\item 
+رجیستر 
+\lr{EX/MEM}
+سیگنال های کنترلی را برای مراحل
+\begin{itemize}
+\item \lr{MEM}،
+\item \lr{WB}، 
+\item 
+\lr{\texttt{PC + 4 + Offset}}
+(جایی که آفست 16 بیت دستورالعمل‌ها 
+\lr{sign-extend}
+شده است، حتی برای دستورالعمل‌هایی که فیلد افست ندارند)،
+\item 
+نتیجه \lr{ALU} و مقدار خروجی صفر آن،
+\item 
+مقداری که از ثبات دوم در مرحله 
+\lr{ID}
+خوانده شد (حتی برای دستورالعمل که هرگز به این مقدار نیاز ندارند) و
+\item 
+شماره رجیستر مقصد (حتی برای دستورالعمل هایی که نیازی به ثبت ندارند. برای این دستورالعمل ها شماره ثبت مقصد به سادگی یک انتخاب "تصادفی" بین
+\lr{Rd} 
+یا
+\lr{Rt}
+است.)
+\end{itemize} 
+
+\item 
+رجیستر 
+\lr{MEM/WB}
+\begin{itemize}
+\item 
+سیگنال‌های کنترل \lr{WB}،
+\item 
+مقدار خوانده شده از حافظه (یا مقداری تصادفی وقتی که چیزی از مموری خوانده نشده است)،
+\item 
+نتیجه \lr{ALU} و
+\item 
+عدد ریجستر مقصد.
+\end{itemize}
+\end{itemize}
+
 \subsection{اتفاقات هنگام اجرا}
 \section{\lr{Execution} در یک \lr{CPU} عه \lr{Pipeline} شده}
 \section{\lr{Hazard}ها}
