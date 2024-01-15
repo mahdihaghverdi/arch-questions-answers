@@ -159,6 +159,39 @@ Delay \texttt{I3} to avoid \texttt{RAW} hazard on \texttt{R2} from \texttt{I2}}
 \end{latin}
 
 \subsection{افزون \lr{NOOP} با وجود \lr{Full Forwarding}}
+\begin{latin}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|l|l|}
+\hline
+& Instruction Sequence & \\
+\hline
+a. &
+\makecell[l]{
+\texttt{SW R16, –100(R6)} \\
+\texttt{LW  R4, 8(R16)} \\
+\texttt{NOOP} \\
+\texttt{ADD R5, R4, R4}}&
+\makecell[l]{ \\ \\
+Delay \texttt{I3} to avoid \texttt{RAW} hazard on \texttt{R4} from \texttt{I2} \\
+Value for \texttt{R4} is forwarded from \texttt{I2} now
+} \\
+\hline
+b. &
+\makecell[l]{
+\texttt{OR R1, R2, R3} \\
+\texttt{OR R2, R1, R4} \\
+\texttt{OR R1, R1, R2} \\
+} &
+\makecell[l]{ \\
+No \texttt{RAW} hazard on \texttt{R1} from \texttt{text} (forwarded) \\
+No \texttt{RAW} hazard on \texttt{R2} from \texttt{text} (forwarded) \\}
+\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+\end{latin}
 \section{نوشتن یک \lr{Pipeline Stage}}
 \section{رجیستر‌های \lr{Pipeline}ها}
 \subsection{رجیستر‌های \lr{Pipeline}}
