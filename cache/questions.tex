@@ -1,0 +1,146 @@
+\documentclass[11pt, dvipsnames, svgnames, x11names]{article}
+
+% URLs and hyperlinks ---------------------------------------
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=black,
+}
+\usepackage{xurl}
+%----------------------------------------------------
+
+% footnotes in headings -----------------------------
+\usepackage[stable]{footmisc}
+%----------------------------------------------------
+
+\usepackage{adjustbox}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{makecell}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+    language=vhdl,
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle=\ttfamily,
+    numbers=left,
+    numberstyle=\small\color{gray},
+    keywordstyle=\bfseries\color{Green4},
+    commentstyle=\color{gray},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    identifierstyle=\color{black}
+}
+
+\usepackage{xepersian}
+\settextfont{Yas}
+\setdigitfont{Yas}
+
+\title{تمرین فصل پنجم - کَش}
+\date{}
+
+\begin{document}
+\maketitle    
+\begin{abstract}        
+سوالات فصل پنجم کتاب، که در مورد حافظه‌ی نهان و سیاست‌های آن صحبت می‌کند، برای شما آماده شده‌اند.
+
+پاسخ هر سوال را در قسمت مربوط آنها در کوئرا به صورت \lr{PDF} به صورت تایپ‌ شده، یا دست‌نویس خوش‌خط و خوانا آپلود کنید.               
+
+پس از پایان‌ یافتن زمان ارسال تمرین، پاسخ‌های این تمرین در آدرس زیر قرار خواهد گرفت.
+\begin{flushleft}
+\url{https://github.com/mahdihaghverdi/arch-questions-answers/tree/main/cache}
+\end{flushleft}
+
+\end{abstract}
+\tableofcontents
+
+\section{\lr{Miss Penalty}}
+یک
+\lr{cache}
+با بلوک‌های 4 کلمه‌ای
+\lr{(4 word cache block)}
+را در نظر بگیرید.
+ساختار حافظه
+\lr{(DRAM)}
+و باس
+\lr{(Bus)}
+داده آن بصورت 2 کلمه‌ای است (در هر آدرس، 2 کلمه قرار دارد). فرض کنید 2 سیکل برای ارسال آدرس به \lr{DRAM} نیاز است. همچنین هر دسترسی به 
+\lr{DRAM}
+به 20 سیکل زمان نیاز داشته و ارسال هر داده بر روی باس به 2 سیکل زمان احتیاج دارد. برای این سیستم حافظه، 
+\lr{Miss Penalty}
+را محاسبه کنید.
+
+\section{محاسبات}
+
+یک پردازنده دارای دو 
+\lr{L1 cache}
+مجزا برای \lr{instruction} و \lr{data} است. مشخصات این سیستم در زیر آمده است.
+
+\begin{latin}
+\begin{itemize}
+\item CPIbase= 1.2  (Ideal Situation)
+\item Main memory access time=150 cycles
+\item Instruction mix: 47\% arithmetic-logic, 35\% load-store, 18\% control
+\item I-Cache miss = 0.6\%
+\item D-Cache miss = 7\%
+\end{itemize}
+\end{latin}
+
+\begin{enumerate}
+\item 
+\lr{CPI} 
+کل این سیستم را با فرض وجود \lr{cache} محاسبه کنید.
+
+\item 
+پردازنده ایدآل (بدون \lr{stall}) چقدر از پردازنده دارای \lr{cache} سریعتر است؟ (پاسخ را بصورت یک کسر میتوانید نمایش دهید)
+
+\item 
+CPI 
+کل این سیستم را با فرض عدم وجود \lr{cache} محاسبه کنید.
+\end{enumerate}
+
+\section{\lr{Associative cache}}
+یک
+\lr{4-way set associative cache}
+را با
+\begin{itemize}
+\item \lr{4-byte word size}،
+\item \lr{16-word block size} و
+\item \lr{8-KB total data cache size}
+\end{itemize}
+را در یک پردازنده با آدرس‌دهی 32 بیتی در نظر بگیرید.
+
+اندازه کل این \lr{cache} را بر حسب بایت (یا \lr{KB}) محاسبه کنید. (فقط پاسخ صحیح نمره دارد) 
+
+\section{\lr{AMAT}}
+مقدار \lr{AMAT} را بر حسب تعداد سیکل، برای سیستم حافظه زیر محاسبه کنید. 
+\begin{latin}
+\begin{table}[H]
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{|l|}
+\hline
+L1 2-way set associative cache with
+hit ratio=95\% and access time=4 cycles\\
+\hline
+L2 direct mapped cache with
+hit ratio=80\% and  access time=18 cycles \\
+\hline
+Main memory access time=500 cycles \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+\end{latin}
+\end{document}
