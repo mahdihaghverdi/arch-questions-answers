@@ -192,7 +192,162 @@ No \texttt{RAW} hazard on \texttt{R2} from \texttt{text} (forwarded) \\}
 \end{center}
 \end{table}
 \end{latin}
+\newpage
 \section{نوشتن یک \lr{Pipeline Stage}}
+\begin{latin}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|l|}
+\hline
+& Instruction \\
+\hline
+a. &
+\makecell[l]{
+\texttt{SW R16, 12(R6)} \\ 
+\texttt{LW R16, 8(R6)} \\ 
+\texttt{BEQ R5, R4, Label ; Assume R5 != R4} \\
+\texttt{ADD R5, R1, R4} \\ 
+\texttt{SLT R5, R15, R4}} \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+\end{latin}
+\begin{latin}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|p{0.5cm}p{0.5cm}p{0.5cm}p{0.5cm}p{0.5cm}p{0.5cm}p{0.5cm}p{0.5cm}p{0.5cm}p{0.5cm}p{0.5cm}|}
+\hline
+\texttt{IF}&
+\texttt{ID}&
+\texttt{EXE}&
+\texttt{MEM}&
+\texttt{WB}&
+&
+&
+&
+&
+&
+\\
+&
+\texttt{IF}&
+\texttt{ID}&
+\texttt{EXE}&
+\texttt{MEM}&
+\texttt{WB}&
+&
+&
+&
+&
+\\
+&
+&
+\texttt{IF}&
+\texttt{ID}&
+\texttt{EXE}&
+\texttt{MEM}&
+\texttt{WB}&
+&
+&
+&
+\\
+&
+&
+&
+\texttt{**}&
+\texttt{**}&
+\texttt{IF}&
+\texttt{ID}&
+\texttt{EXE}&
+\texttt{MEM}&
+\texttt{WB}&
+\\
+&
+&
+&
+&
+&
+&
+\texttt{IF}&
+\texttt{ID}&
+\texttt{EXE}&
+\texttt{MEM}&
+\texttt{WB}\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+\end{latin}
+
+\hrule
+\vspace{0.5cm}
+
+\begin{latin}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|l|}
+\hline
+& Instruction \\
+\hline
+b. &
+\makecell[l]{
+\texttt{SW R2, 0(R3)} \\ 
+\texttt{OR R1, R2, R3} \\ 
+\texttt{BEQ R2, R0, Label ; Assume R2 == R0} \\
+\texttt{OR R2, R2, R0} \\
+\texttt{Label: ADD R1, R4, R3}}\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+\end{latin}
+\begin{latin}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|p{0.5cm}p{0.5cm}p{0.5cm}p{0.5cm}p{0.5cm}p{0.5cm}p{0.5cm}p{0.5cm}p{0.5cm}|}
+\hline
+\texttt{IF}&
+\texttt{ID}&
+\texttt{EXE}&
+\texttt{MEM}&
+\texttt{WB}&
+&
+&
+&
+\\
+&
+\texttt{IF}&
+\texttt{ID}&
+\texttt{EXE}&
+\texttt{MEM}&
+\texttt{WB}&
+&
+&
+\\
+&
+&
+\texttt{IF}&
+\texttt{ID}&
+\texttt{EXE}&
+\texttt{MEM}&
+\texttt{WB}&
+&
+\\
+&
+&
+&
+\texttt{**}&
+\texttt{IF}&
+\texttt{ID}&
+\texttt{EXE}&
+\texttt{MEM}&
+\texttt{WB} \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+\end{latin}
+
 \section{رجیستر‌های \lr{Pipeline}ها}
 \subsection{رجیستر‌های \lr{Pipeline}}
 \subsection{اتفاقات هنگام اجرا}
