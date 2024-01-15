@@ -497,5 +497,45 @@ RegWrite = 1}
 \end{table}
 \end{latin}
 \section{\lr{Hazard}ها}
+
+\begin{latin}
+\begin{table}[H]
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{|c|l|l|l|}
+\hline
+& Instruction & With Forw. & Without Forw.\\
+\hline
+a. &
+\makecell[l]{
+\texttt{I1: ADD R1, R2, R1} \\ 
+\texttt{I2: LW R2, 0(R1)} \\ 
+\texttt{I3: LW R1, 4(R1)} \\
+\texttt{I4: OR R3, R1, R2}} &
+\texttt{(R1)} \texttt{I3} to \texttt{I4}&
+\makecell[l]{
+\texttt{(R1)} \texttt{I1} to \texttt{I2}, \texttt{I3} \\
+\texttt{(R2)} \texttt{I2} to \texttt{I4} \\
+\texttt{(R1)} \texttt{I3} to \texttt{I4} 
+}\\ 
+\hline
+b. &
+\makecell[l]{
+\texttt{I1: LW R1, 0(R1)} \\ 
+\texttt{I2: AND R1, R1, R2} \\ 
+\texttt{I3: LW R2, 0(R1)} \\
+\texttt{I4: LW R1, 0(R3)}} &
+\texttt{(R1)} \texttt{I1} to \texttt{I2}&
+\makecell[l]{
+\texttt{(R1)} \texttt{I1} to \texttt{I2} \\
+\texttt{(R1)} \texttt{I2} to \texttt{I3} 
+}\\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+\end{latin}
+
 \section{ارتباط بین \lr{Forwarding}، \lr{Hazard} و \lr{ISA Desing}}
+\subsection{افزودن \lr{NOOP}}
+\subsection{جابجا کردن دستورات}
 \end{document}
