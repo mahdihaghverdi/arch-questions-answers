@@ -20,6 +20,7 @@
 \usepackage{color}
 \usepackage{xcolor}
 \usepackage{adjustbox}
+\usepackage{makecell}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -92,15 +93,41 @@ X &
 \end{adjustbox}
 \end{table}
 \end{latin}
+
 \section{پیش‌نیاز‌‌های داده‌ای}
 \subsection{وابستگی‌ها}
-\subsection{افزودن \lr{NOOP} بدون وجود \lr{Full Forwarding}}
-\subsection{افزون \lr{NOOP} با وجود \lr{Full Forwarding}}
+\begin{latin}
+\begin{table}[H]
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{|c|l|l|}
+\hline
+& Instruction Sequence & Dependencies \\
+\hline
+a. &
+\makecell[l]{\texttt{I1: SW R16, –100(R6)} \\ \texttt{I2: LW  R4, 8(R16)} \\ \texttt{I3: ADD R5, R4, R4}}
+& \makecell[l]{\texttt{\texttt{RAW}} on \texttt{R4} from \texttt{I2} to \texttt{I3}} \\
+\hline
+b. &
+\makecell[l]{\texttt{I1: OR R1, R2, R3} \\ \texttt{I2: OR R2, R1, R4} \\ \texttt{I3: OR R1, R1, R2}} &
+\makecell[l]{\texttt{\texttt{RAW}} on \texttt{R1} from \texttt{I1} to \texttt{I2} and \texttt{I3} \\ \texttt{RAW} on \texttt{R2} from \texttt{I2} to \texttt{I3} \\ \texttt{WAR} on \texttt{R2} from \texttt{I1} to \texttt{I2} \\ \texttt{WAR} on \texttt{R1} from \texttt{I2} to \texttt{I3} \\ \texttt{WAW} on \texttt{R1} from \texttt{I1} to \texttt{I3}}
+\\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+\end{latin}
+برای مطالعه‌ی معنی وابستگی‌ها به این لینک مراجعه کنید:
+\begin{flushleft}
+\url{https://en.wikipedia.org/wiki/Data_dependency}
+\end{flushleft}
+
+\subsection{افزودن \lr{NOOP} بدون وجود \lr{Full For\texttt{WAR}ding}}
+\subsection{افزون \lr{NOOP} با وجود \lr{Full For\texttt{WAR}ding}}
 \section{نوشتن یک \lr{Pipeline Stage}}
 \section{رجیستر‌های \lr{Pipeline}ها}
 \subsection{رجیستر‌های \lr{Pipeline}}
 \subsection{اتفاقات هنگام اجرا}
 \section{\lr{Execution} در یک \lr{CPU} عه \lr{Pipeline} شده}
 \section{\lr{Hazard}ها}
-\section{ارتباط بین \lr{Forwarding}، \lr{Hazard} و \lr{ISA Desing}}
+\section{ارتباط بین \lr{For\texttt{WAR}ding}، \lr{Hazard} و \lr{ISA Desing}}
 \end{document}
