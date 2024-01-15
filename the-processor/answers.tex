@@ -19,6 +19,7 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage{xcolor}
+\usepackage{adjustbox}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -54,6 +55,43 @@
 \tableofcontents
 \newpage
 \section{سیگنال‌های کنترلی در یک پردازنده‌ی \lr{Single Cycle}}
+\begin{latin}
+\begin{table}[H]
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+&
+RegWrite &
+MemRead&
+ALUMux&
+MemWrite&
+ALUOp&
+RegMux&
+Branch\\
+\hline
+\hline
+a. &
+1 &
+0 &
+0 (Reg)&
+0 &
+AND &
+1 (ALU)&
+0 \\
+\hline
+b. &
+0 &
+0 &
+1 (Imm)&
+1 &
+ADD &
+X &
+0 \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+\end{latin}
 \section{پیش‌نیاز‌‌های داده‌ای}
 \subsection{وابستگی‌ها}
 \subsection{افزودن \lr{NOOP} بدون وجود \lr{Full Forwarding}}
