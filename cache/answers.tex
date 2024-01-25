@@ -1,0 +1,161 @@
+\documentclass[11pt, dvipsnames, svgnames, x11names]{article}
+
+% URLs and hyperlinks ---------------------------------------
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=black,
+}
+\usepackage{xurl}
+%----------------------------------------------------
+
+\usepackage{amsmath, amssymb}
+
+% footnotes in headings -----------------------------
+\usepackage[stable]{footmisc}
+%----------------------------------------------------
+
+\usepackage{adjustbox}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{makecell}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+    language=vhdl,
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle=\ttfamily,
+    numbers=left,
+    numberstyle=\small\color{gray},
+    keywordstyle=\bfseries\color{Green4},
+    commentstyle=\color{gray},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    identifierstyle=\color{black}
+}
+
+\usepackage{xepersian}
+\settextfont{Yas}
+\setdigitfont{Yas}
+
+\title{پاسخ تمرین فصل پنجم - کَش}
+\date{}
+
+\begin{document}
+\maketitle    
+\tableofcontents
+
+\section{\lr{Miss Penalty}}
+\begin{flushleft}
+\lr{Miss Penalty = \texttt{2 + 2 × 20 + 2 × 2 = 46} memory bus cycles}
+\end{flushleft}
+
+\section{محاسبات}
+1. 
+\begin{latin}
+\begin{equation}
+\text{CPI} = \text{CPIbase + Mem Stalls Per Instruction}
+\end{equation}
+\begin{equation}
+\begin{split}
+\text{\texttt{Mem Stalls/Instruction}} = 
+& \ \text{\texttt{ICache miss rate}} \\
+\times & \ \text{\texttt{ICache miss penalty}} \\
++ & \ \text{\texttt{DCache miss rate}} \\
+\times & \ \text{\texttt{DCache miss penalty}} \\
+\times & \ \text{\texttt{(Data Mem access/instruction}} \\
+= & \ \frac{0.6}{100} \times 150 + \frac{35}{100} \times \frac{7}{100}  \times 150 \\
+= & \ 0.9 + 3.675 = 4.575 \\
+\end{split}
+\end{equation}
+
+\begin{equation}
+\text{CPI} = 1.2 + 4.575 = 5.775
+\end{equation}
+\end{latin}
+
+2. 
+پردازنده ایده آل
+\lr{$\frac{5.775}{1.2} = 4.8125$}
+برابر سریعتر از پردازنده با \lr{cache} است.
+
+\vspace{5mm}
+3. 
+\begin{latin}
+\begin{equation}
+\begin{split}
+\text{CPI}_{\text{no-cache}} = & \ 1.2 \\
++ & \ [1 \, \text{(for instruction fetch)} 
++ \ 0.35 \, \text{(for data access)}] \\ 
+\times & \ 150 = 203.7 
+\end{split}
+\end{equation}
+\end{latin}
+
+\section{\lr{Associative cache}}
+
+اندازه یک
+\lr{set}:
+\begin{latin}
+\[4 \ \text{\lr{(bytes per word)}} \times 16 \ \text{\lr{(words per block or way)}} \times 4 \ \text{\lr{(ways)}} = 2^8\]
+\end{latin}
+
+اندازه کل داده در این \lr{cache} بر حسب بایت:
+\lr{$8 \ \text{\lr{KByte}} = 2^{13}$}
+است پس این 
+\lr{cache}
+کلا
+\begin{latin}
+\[\frac{2^{13}}{2^8} = 2^5 = 32\]
+\end{latin}
+ عدد 
+\lr{set}
+دارد.
+
+پس تعداد بیتهای \lr{tag} معادل خواهد بود با
+\begin{latin}
+\[32 - (2 + 4 + 5) = 21\]
+\end{latin}
+(2 بیت برای آفست بایت و 4 بیت برای آفست کلمه و 5 بیت برای \lr{index})
+
+\vspace{5mm}
+اندازه کل یک block معادل است با:
+\begin{latin}
+\[1 \ \text{\lr{bit (valid)}} + 21 \ \text{\lr{bits (tag)}} + 16 \times 4 \ \text{\lr{bytes (Data)}} = 534 \ \text{\lr{bit}} = 66.75  \ \text{\lr{Byte}}\]
+\end{latin}
+
+اندازه کل \lr{cache} مساوی است با:
+\begin{latin}
+\[66.75 \times 4 \ \text{\lr{(set/block)}} \times 32 \ \text{\lr{(sets/cache)}} = 8544 \ \text{\lr{Bytes}}\]
+\end{latin}
+\section{\lr{AMAT}}
+
+\begin{latin}
+\begin{equation}
+\text{AMAT} = \text{Hit Time}_{\text{L1}} +\text{Miss Rate}_{\text{L1}} \times \text{Miss Penalty}_{\text{L1}}
+\end{equation}
+\begin{equation}
+\begin{split}
+\text{Miss Penalty}_{\text{L1}} = & \ \text{Hit Time}_{\text{L2}} \\
++ & \ \text{Miss Rate}_{\text{L2}} \\
+\times & \ \text{Miss Penalty}_{\text{L2}} \\
+= & 18 + 20 \% \times 500 = 118 \ \text{cycles}
+\end{split}
+\end{equation}
+\begin{equation}
+\text{AMAT} = 4 + 5\% \times 118 = 9.9 \ \text{cycles}
+\end{equation}
+\end{latin}
+\end{document}
